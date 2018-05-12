@@ -1,0 +1,67 @@
+logging:
+    level:
+        org:
+            springframework:
+                jdbc:
+                    core: TRACE
+        root: INFO
+    file: logs/personal.log
+personal:
+    charset: UTF-8
+    errorForwardBackupDir: /Users/zhaopei/Desktop/personal/errorForwardBackup
+    errorForwardDir: /Users/zhaopei/Desktop/personal/errorForward
+    getKeyUrl: /trans/camel/getKey
+    jaxbFormated: true
+    jaxbPackages: online.zhaopei.personal.jaxb
+    maxRequestCount: 5
+    messageQueue: 200
+    poolSize: 1
+    receiveDir: /Users/zhaopei/Desktop/personal/receive
+    receiveBackupDir: /Users/zhaopei/Desktop/personal/receiveBackup
+    receiveBackupPrefix: FILE_RECEIVE_BACKUP
+    receiveFilePattern: '*.xml'
+    retryCount: 3
+    rid: -
+    scanRate: 100
+    secret: -
+    secretFile: .secret
+    sendBackupDir: /Users/zhaopei/Desktop/personal/sendBackup
+    sendDir: /Users/zhaopei/Desktop/personal/send
+    sendPrefix: FILE_SEND
+    sendBackupPrefix: FILE_SEND_BACKUP
+    serviceHost: -
+    sfhcFwqqbh: -
+    sfhcPassword: -
+    sfhcQqbwdm: GJXXZX
+    sfhcQqbwmc: 国家信息中心
+    sfhcQqrdwdm: -
+    sfhcQqrdwmc: 河南省工商行政管理局
+    sfhcQqrgmsfhm: -
+    sfhcQqrxm: -
+    sfhcQqywlxdm: -
+    sfhcQqywlxmc: 企业登记
+    sfhcQqywxtdm: -
+    sfhcQqywxtmc: 河南省企业登记全程电子化
+    sfhcSjlyxtdm: -
+    sfhcSjlyxtmc: 河南省数据共享交换平台
+    sfhcUrl: /trans/camel/SFHC
+    sfhcUserName: -
+    sid: -
+    suffix: .xml
+server:
+    port: 8080
+    tomcat:
+        uri-encoding: UTF-8
+spring:
+    datasource:
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        password: NTTHFCL
+        url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST=172.16.149.151)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XE)))
+        username: NTTHFCL
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    messages:
+        encoding: UTF-8
