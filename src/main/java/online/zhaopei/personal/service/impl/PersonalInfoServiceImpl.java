@@ -15,20 +15,14 @@ import online.zhaopei.personal.util.HttpUtil;
 import online.zhaopei.personal.util.QueueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by zhaopei on 18/5/8.
@@ -104,9 +98,12 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
         int maxRequestCount = personalProp.getMaxRequestCount();
         int receiveCount = identityHead.getCount();
 
-        for (Person p : personList) {
-            if (PersonalInfoConstant.STATUS_PASS.toString().equals(this.personalInfoDao.findStatusByIdNumber(p.getId()))) {
-                personList.remove(p);
+        Iterator<Person> personIterator = personList.iterator();
+        Person pi = null;
+        while (personIterator.hasNext()) {
+            pi = personIterator.next();
+            if (PersonalInfoConstant.STATUS_PASS.toString().equals(this.personalInfoDao.findStatusByIdNumber(pi.getId()))) {
+                personIterator.remove();
             }
         }
         receiveCount = personList.size();
@@ -150,6 +147,7 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
                 boolean retry = false;
                 int sleep = 500;
                 int sleepIncrement = 200;
+                int recordCount = 1;
                 do {
                     if (0 < currRetryNum) {
                         Thread.sleep(currRetryNum * sleep + sleepIncrement);
@@ -158,8 +156,10 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
 
                     if (httpResponse.getBoolean("success")) {
                         retry = false;
+                        recordCount = 1;
                         responseData = httpResponse.getObject("data", SfhcData.class);
                         updatePersonalInfoList.clear();
+                        sfhcRecordList.clear();
                         personalInfoHead = new PersonalInfoHead();
                         personalInfoHead.setMessageNo(UUID.randomUUID().toString());
                         personalInfoHead.setMessageTime(Calendar.getInstance().getTime());
@@ -178,6 +178,12 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
                                 personalInfo.setStatus(PersonalInfoConstant.STATUS_PASS.toString());
                             } else {
                                 personalInfo.setStatus(PersonalInfoConstant.STATUS_FAIL.toString());
+                                sfhcRecord = new SfhcRecord();
+                                sfhcRecord.setNo(recordCount++);
+                                sfhcRecord.setGmsfhm(sr.getGmsfhm());
+                                sfhcRecord.setXm(sr.getXm());
+                                sfhcRecordList.add(sfhcRecord);
+                                retry = true;
                             }
                             personalInfoListJaxb.setStatus(personalInfo.getStatus());
                             personalInfoLog.setSeqNo(UUID.randomUUID().toString());
@@ -215,6 +221,7 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
                     }
                     currRetryNum++;
                 } while (retry && currRetryNum < retryCount);
+
                 if (retry) {
                     IdentityRequest errorForwardIr = new IdentityRequest();
                     IdentityHead errorIh = new IdentityHead();

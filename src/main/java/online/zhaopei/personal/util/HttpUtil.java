@@ -108,7 +108,10 @@ public final class HttpUtil {
 
             if (requestSecret) {
                 secret = requestSecret(getKeyUrl, personalProp.getSid(), personalProp.getRid(), rtime, personalProp.getSecret(), secretPath);
+                Thread.sleep(30000);
+                rtime = System.currentTimeMillis() + "";
             }
+
             sfhcPackage.getSfhcPackageHead().setFssj(Calendar.getInstance().getTime());
             requestXml = commonTransformer.ObjectToString(sfhcPackage, false);
             response = httpPost(url, buildSfhcRequest(personalProp, rtime, secret, requestXml), ContentType.create("text/xml", Consts.UTF_8));

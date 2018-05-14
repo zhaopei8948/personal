@@ -21,32 +21,32 @@ personal:
     receiveBackupPrefix: FILE_RECEIVE_BACKUP
     receiveFilePattern: '*.xml'
     retryCount: 3
-    rid: -
+    rid:
     scanRate: 100
-    secret: -
+    secret:
     secretFile: .secret
     sendBackupDir: /Users/zhaopei/Desktop/personal/sendBackup
     sendDir: /Users/zhaopei/Desktop/personal/send
     sendPrefix: FILE_SEND
     sendBackupPrefix: FILE_SEND_BACKUP
-    serviceHost: -
-    sfhcFwqqbh: -
-    sfhcPassword: -
+    serviceHost:
+    sfhcFwqqbh:
+    sfhcPassword:
     sfhcQqbwdm: GJXXZX
     sfhcQqbwmc: 国家信息中心
-    sfhcQqrdwdm: -
+    sfhcQqrdwdm:
     sfhcQqrdwmc: 河南省工商行政管理局
-    sfhcQqrgmsfhm: -
-    sfhcQqrxm: -
-    sfhcQqywlxdm: -
+    sfhcQqrgmsfhm:
+    sfhcQqrxm:
+    sfhcQqywlxdm:
     sfhcQqywlxmc: 企业登记
-    sfhcQqywxtdm: -
+    sfhcQqywxtdm:
     sfhcQqywxtmc: 河南省企业登记全程电子化
-    sfhcSjlyxtdm: -
+    sfhcSjlyxtdm:
     sfhcSjlyxtmc: 河南省数据共享交换平台
     sfhcUrl: /trans/camel/SFHC
-    sfhcUserName: -
-    sid: -
+    sfhcUserName:
+    sid:
     suffix: .xml
 server:
     port: 8080
